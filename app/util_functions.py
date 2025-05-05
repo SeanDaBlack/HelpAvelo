@@ -139,7 +139,7 @@ def fill_form(driver: webdriver.Chrome, fake_identity: dict) -> None:
         
         print("attaching the resume")
         resume_input = driver.find_element("id", "btn-forceResume")
-        resume_input.send_keys(os.path.join(os.getcwd(), f"{fake_identity["first_name"]} {fake_identity["last_name"]}.pdf"))
+        resume_input.send_keys(os.path.join(os.getcwd(), f"{fake_identity['first_name']} {fake_identity['last_name']}.pdf"))
         driver.implicitly_wait(5)
         
         for key, value in DOM_ELEMENTS.items():
