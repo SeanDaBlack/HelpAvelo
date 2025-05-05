@@ -1,0 +1,6 @@
+Faker
+fpdf
+selenium
+webdriver_manager
+keyboard
+pynput
