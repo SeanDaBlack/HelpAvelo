@@ -276,7 +276,7 @@ def fill_form(driver: webdriver.Chrome, fake_identity: dict) -> None:
         print(f"Error filling form: {e}")
         raise e
     finally:
-        os.remove(os.path.join(os.getcwd(), f"{fake_identity["first_name"]} {fake_identity["last_name"]}.pdf"))
+        os.remove(os.path.join(os.getcwd(), f'{fake_identity["first_name"]} {fake_identity["last_name"]}.pdf'))
         driver.quit()
         
         
