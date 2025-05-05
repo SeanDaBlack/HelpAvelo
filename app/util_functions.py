@@ -10,18 +10,21 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from faker import Faker
 from selenium.common.exceptions import TimeoutException
+import tempfile
 
 import os
 import logging
 
 def start_driver() -> webdriver.Chrome:
 
-    chrome_options = webdriver.ChromeOptions()    
+    chrome_options = webdriver.ChromeOptions()
 
+    user_data_dir = tempfile.mkdtemp()
+    chrome_options.add_argument(f'--user-data-dir={user_data_dir}')
     desired_capabilities = DesiredCapabilities.CHROME.copy()
 
     desired_capabilities['acceptInsecureCerts'] = True
-    # chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument('--user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"')
