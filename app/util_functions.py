@@ -17,32 +17,24 @@ import logging
 
 def start_driver() -> webdriver.Chrome:
 
-    chrome_options = webdriver.ChromeOptions()
+    s = Service("/bin/chromedriver")
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    # options.add_experimental_option("debuggerAddress", "127.0.0.1:9014")
+    options.add_argument("start-maximized")
+    # options.add_argument("--disable-gpu")
+    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/95.0.4638.54 Safari/537.36")
+    # options.add_argument("--disable-blink-features=AutomationControlled")
 
-    user_data_dir = tempfile.mkdtemp()
-    chrome_options.add_argument(f'--user-data-dir={user_data_dir}')
-    desired_capabilities = DesiredCapabilities.CHROME.copy()
+    # options.add_argument("window-size=1200x600")
+    driver = webdriver.Chrome(service=s, options=options)
+    # driver = webdriver.Chrome(
+    #     'chromedriver', options=options)
 
-    desired_capabilities['acceptInsecureCerts'] = True
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument('--user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"')
-    chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument('--remote-debugging-port=9222')
-    chrome_options.add_argument("window-size=1200x600")
-    chrome_options.add_argument('--ignore-certificate-errors')
-    chrome_options.add_argument('--remote-debugging-pipe')
-
-    chrome_options.add_argument('--allow-insecure-localhost')
-    chrome_options.add_argument('--allow-running-insecure-content')
-
-    try:
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager(driver_version="135.0.7049").install()), options=chrome_options)
-    
-        return driver
-    except Exception as e:
-        raise e
+    return driver
 
 
 def random_phone(format=None, area_codes=[800]):
