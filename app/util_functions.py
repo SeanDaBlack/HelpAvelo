@@ -40,7 +40,11 @@ def start_driver() -> webdriver.Chrome:
 
 def random_phone(format=None, area_codes=[800]):
     
-    area_code = str(random.choice(area_codes)).rjust(3,'0')
+    # print(area_codes)
+    
+    area_code = str(random.choice(area_codes))
+    # print(area_code)
+
     middle_three = str(random.randint(0,999)).rjust(3,'0')
     last_four = str(random.randint(0,9999)).rjust(4,'0')
 
@@ -84,7 +88,7 @@ def generate_fake_identity(fake: Faker) -> dict:
         "first_name": name["first_name"],
         "last_name": name["last_name"],
         "email": random_email(name),
-        "phone": random_phone(format=0, area_codes=[local_data[3]]),
+        "phone": random_phone(format=0, area_codes=local_data[3].split(",")),
         "address": fake.street_address(),
         "city": fake.city(),
         "state": local_data[1],  # Use the generated state abbreviation
@@ -177,9 +181,15 @@ def fill_form(driver: webdriver.Chrome, fake_identity: dict) -> None:
         
         print("Waiting for the next page to load...")
         
-        # if "Please correct missing or invalid fields." in driver.page_source:
-        #     print("Please correct missing or invalid fields.")
-        #     raise Exception("Please correct missing or invalid fields.")
+        if "Please correct missing or invalid fields." in driver.page_source:
+            
+            
+            # print(driver.page_source)
+            
+            
+            
+            print("Please correct missing or invalid fields.")
+            raise Exception("Please correct missing or invalid fields.")
         
         
         
