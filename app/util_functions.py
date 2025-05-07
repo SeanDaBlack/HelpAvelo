@@ -11,6 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from faker import Faker
 from selenium.common.exceptions import TimeoutException
 import tempfile
+import requests
 
 import os
 import logging
@@ -104,6 +105,13 @@ DOM_ELEMENTS = {
     "state": (By.ID, "public-site-address-us-state"),
     "zip": (By.ID, "public-site-address-zip"),
 }
+
+
+def addTracking():
+    # send post request
+    r = requests.post("fight-tracking.gz4c.org")
+    if r.status_code == 200:
+        print("Application Logged")
 
 def fill_form(driver: webdriver.Chrome, fake_identity: dict) -> None:
     
@@ -263,6 +271,9 @@ def fill_form(driver: webdriver.Chrome, fake_identity: dict) -> None:
         driver.find_element("id", "applyAcknowledgement").click()
         time.sleep(1)
         driver.find_element(By.ID, "btn-submit").click()
+        
+        time.sleep(1)
+        addTracking()
         time.sleep(5)
     
     except TimeoutException as e:
