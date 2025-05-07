@@ -177,9 +177,9 @@ def fill_form(driver: webdriver.Chrome, fake_identity: dict) -> None:
         
         print("Waiting for the next page to load...")
         
-        if "Please correct missing or invalid fields." in driver.page_source:
-            print("Please correct missing or invalid fields.")
-            raise Exception("Please correct missing or invalid fields.")
+        # if "Please correct missing or invalid fields." in driver.page_source:
+        #     print("Please correct missing or invalid fields.")
+        #     raise Exception("Please correct missing or invalid fields.")
         
         
         
