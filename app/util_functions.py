@@ -109,7 +109,7 @@ DOM_ELEMENTS = {
 
 def addTracking():
     # send post request
-    r = requests.post("fight-tracking.gz4c.org")
+    r = requests.post("https://fight-tracking.gz4c.org")
     if r.status_code == 200:
         print("Application Logged")
 
