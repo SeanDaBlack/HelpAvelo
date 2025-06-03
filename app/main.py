@@ -77,7 +77,9 @@ if __name__ == "__main__":
                         
                     
             print("Filling out the form...")
-            fill_form_all(driver, fake_identity, urls[get_random_url(driver)])
+            
+            url = get_random_url(driver)
+            fill_form_all(driver, fake_identity, urls[url], urls.index(url))
 
 
             

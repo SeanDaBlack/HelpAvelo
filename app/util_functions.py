@@ -122,9 +122,14 @@ DOM_ELEMENTS = {
 }
 
 
-def addTracking():
+def addTracking(application_id: int) -> None:
     # send post request
-    r = requests.post("https://fight-tracking.gz4c.org")
+    
+    data = {
+        "application_id": application_id
+    }
+    
+    r = requests.post("https://fight-tracking.gz4c.org", json=data)
     if r.status_code == 200:
         print("Application Logged")
 
@@ -302,7 +307,7 @@ def page_2_01(driver: webdriver.Chrome, fake_identity: dict) -> None:
     
     print("Waiting for the next page to load...")
 
-def page_3(driver: webdriver.Chrome, fake_identity: dict) -> None:
+def page_3(driver: webdriver.Chrome, fake_identity: dict, app_id:int) -> None:
 
     WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.ID, "acknowledgements.eeoGender"))
@@ -355,17 +360,17 @@ def page_3(driver: webdriver.Chrome, fake_identity: dict) -> None:
     driver.find_element(By.ID, "btn-submit").click()
     
     time.sleep(1)
-    addTracking()
+    addTracking(app_id)
     time.sleep(5)
 
 
 
-def fill_form_all(driver: webdriver.Chrome, fake_identity: dict, url: str) -> None:
+def fill_form_all(driver: webdriver.Chrome, fake_identity: dict, url: str, app_id:int) -> None:
     
     try:
         page_1(driver, fake_identity, url)
         page_2_01(driver, fake_identity)
-        page_3(driver, fake_identity)
+        page_3(driver, fake_identity, app_id)
         
     except TimeoutException as e:
         print(f"Timeout while waiting for element: {e}")
