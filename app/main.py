@@ -12,7 +12,7 @@ fake = Faker()
 
 
 
-urls = ["https://recruiting.paylocity.com/Recruiting/Jobs/Apply/3173329","https://recruiting.paylocity.com/Recruiting/Jobs/Apply/3223576", "https://recruiting.paylocity.com/Recruiting/Jobs/Apply/2978847"]
+urls = ["https://recruiting.paylocity.com/Recruiting/Jobs/Apply/3173329","https://recruiting.paylocity.com/Recruiting/Jobs/Apply/3223576", "https://recruiting.paylocity.com/Recruiting/Jobs/Apply/2978847", "https://recruiting.paylocity.com/Recruiting/Jobs/Apply/3292538"]
 
 
 
@@ -79,7 +79,7 @@ if __name__ == "__main__":
             print("Filling out the form...")
             
             url = get_random_url(driver)
-            fill_form_all(driver, fake_identity, urls[url], urls.index(url))
+            fill_form_all(driver, fake_identity, urls[url], url)
 
 
             
